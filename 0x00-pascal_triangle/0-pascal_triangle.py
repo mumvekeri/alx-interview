@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 def generate_pascals_triangle(n):
     if n <= 0:
         return []
