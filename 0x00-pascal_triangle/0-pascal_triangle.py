@@ -11,4 +11,3 @@ def generate_pascals_triangle(n):
         triangle.append(row)
     return triangle
 
-
