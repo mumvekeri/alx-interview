@@ -1,19 +1,22 @@
 #!/usr/bin/python3
 
 def canUnlockAll(boxes):
-    n = len(boxes)
-    if n == 0:
-        return True
+    unlocked = [False] * len(boxes)
+    unlocked[0] = True
+    keys = [0]
     
-    visited = [False] * n
-    visited[0] = True
-    stack = [0]
+    while keys:
+        new_keys = []
+        for key in keys:
+            if unlocked[key] == False:
+                unlocked[key] = True
+            for new_key in boxes[key]:
+                if new_key < len(boxes) and not unlocked[new_key]:
+                    new_keys.append(new_key)
+        keys = new_keys
     
-    while stack:
-        box_index = stack.pop()
-        for key in boxes[box_index]:
-            if key < n and not visited[key]:
-                visited[key] = True
-                stack.append(key)
-    
-    return all(visited)
+    return all(unlocked)
+
+# Example of usage:
+# print(canUnlockAll([[1], [2], [3], [4], []])) # Returns True
+# print(canUnlockAll([[1, 2], [2, 3], [3], []])) # Returns False
