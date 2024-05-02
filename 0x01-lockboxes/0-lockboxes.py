@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 '''LockBoxes Challenge'''
 
+
 def canUnlockAll(boxes):
     '''Determines if all the boxes can be opened or not.
 
