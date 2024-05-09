@@ -6,22 +6,42 @@ def minOperations(n):
     if n <= 1:
         return 0
     
-    # Initialize dp array with a large number (inf) and dp[1] = 0
-    dp = [float('inf')] * (n + 1)
-    dp[1] = 0
+    pasted_chars = 1  # Number of characters in the file
+    clipboard = 0     # Number of 'H' characters copied
+    counter = 0       # Operations counter
     
-    for i in range(2, n + 1):
-        # Find all factors of i
-        j = 1
-        while j * j <= i:
-            if i % j == 0:
-                # Factor pair (j, i // j)
-                dp[i] = min(dp[i], dp[j] + (i // j))
-                if i // j != i:
-                    dp[i] = min(dp[i], dp[i // j] + j)
-            j += 1
+    while pasted_chars < n:
+        if clipboard == 0:
+            # Copy all
+            clipboard = pasted_chars
+            counter += 1
+
+        if pasted_chars == 1:
+            # Paste
+            pasted_chars += clipboard
+            counter += 1
+            continue
+        
+        remaining = n - pasted_chars
+        
+        if remaining < clipboard:
+            return 0
+        
+        if remaining % pasted_chars != 0:
+            # Paste current clipboard
+            pasted_chars += clipboard
+            counter += 1
+        else:
+            # Copy all
+            clipboard = pasted_chars
+            # Paste
+            pasted_chars += clipboard
+            counter += 2
     
-    return dp[n] if dp[n] != float('inf') else 0
+    if pasted_chars == n:
+        return counter
+    else:
+        return 0
 
 # Test the function
 n = 9
