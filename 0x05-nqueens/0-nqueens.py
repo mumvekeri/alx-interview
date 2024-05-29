@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""N queens"""
 import sys
-
 
 def is_valid(board, row, col):
     """Check if it's safe to place a queen at board[row][col]."""
